@@ -1,0 +1,1174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Libin Vinu - Unity Game Developer</title>
+    <link rel="preconnect" href="https://www.youtube.com">
+    <style>
+        /* ===== Cosmic Base Styles ===== */
+        :root {
+            --primary: #4fc3f7;
+            --primary-dark: #1a237e;
+            --bg: #0a0a1a;
+            --card-bg: rgba(10, 10, 26, 0.7);
+        }
+        
+        body {
+            font-family: 'Orbitron', 'Segoe UI', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: var(--bg) url('https://images.unsplash.com/photo-1454789548928-9efd52dc4031?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') no-repeat center center/cover;
+            color: #ffffff;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+        
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(10,10,26,0.7) 0%, rgba(4,2,16,0.9) 100%);
+            z-index: 0;
+        }
+        
+        /* ===== Main Structure ===== */
+        .main-container {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* ===== Header Section ===== */
+        .header-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        
+        /* LV Logo */
+        .lv-logo-container {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 10;
+        }
+        
+        .lv-logo {
+            width: 60px;
+            height: 60px;
+            perspective: 1000px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        
+        .lv-logo:hover {
+            transform: scale(1.1) rotateY(15deg);
+        }
+        
+        .logo-ship {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .logo-base {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            border-radius: 50%;
+            box-shadow: 0 0 20px rgba(79, 195, 247, 0.5),
+                        inset 0 0 10px rgba(255,255,255,0.3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: white;
+            text-shadow: 0 0 8px rgba(79, 195, 247, 0.7);
+            transform: rotateX(15deg);
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        /* Profile Image */
+        .profile-container {
+            position: relative;
+            margin-bottom: 20px;
+        }
+        
+        .profile-badge {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto;
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .profile-img {
+            width: 120%;
+            height: 120%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--primary);
+            box-shadow: 0 0 25px rgba(79, 195, 247, 0.6);
+            transition: all 0.3s ease;
+        }
+        
+        .profile-badge:hover .profile-img {
+            box-shadow: 0 0 35px rgba(79, 195, 247, 0.8);
+            transform: scale(1.05);
+        }
+        
+        .hologram-effect {
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            width: calc(100% + 10px);
+            height: calc(100% + 10px);
+            background: radial-gradient(circle, rgba(79, 195, 247, 0.3) 0%, transparent 70%);
+            border-radius: 50%;
+            z-index: -1;
+            animation: pulse 3s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 0.5; transform: scale(0.95); }
+            50% { opacity: 0.8; transform: scale(1.05); }
+            100% { opacity: 0.5; transform: scale(0.95); }
+        }
+        
+        /* Header Text */
+        .header-text {
+            max-width: 800px;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        h1 {
+            font-size: 3rem;
+            margin: 10px 0;
+            font-weight: 600;
+            text-shadow: 0 0 15px rgba(79, 195, 247, 0.7);
+            background: linear-gradient(to right, var(--primary), #ffffff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: textGlow 2s ease-in-out infinite alternate;
+        }
+        
+        @keyframes textGlow {
+            from { text-shadow: 0 0 10px rgba(79, 195, 247, 0.7); }
+            to { text-shadow: 0 0 20px rgba(79, 195, 247, 0.9); }
+        }
+        
+        .subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 25px;
+            color: #aaaaaa;
+            text-shadow: 0 0 8px rgba(0,0,0,0.7);
+        }
+        
+        .bio {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            max-width: 600px;
+            margin: 0 auto;
+            text-shadow: 0 0 5px rgba(0,0,0,0.5);
+            background: rgba(10, 10, 26, 0.5);
+            padding: 20px;
+            border-radius: 10px;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(79, 195, 247, 0.2);
+        }
+        
+        .highlight {
+            color: var(--primary);
+            font-weight: bold;
+            text-shadow: 0 0 10px rgba(79, 195, 247, 0.7);
+        }
+        
+        /* About Me Section */
+        .about-me {
+            max-width: 800px;
+            margin: 60px auto;
+            padding: 30px;
+            background: rgba(10, 10, 26, 0.7);
+            border-radius: 10px;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(79, 195, 247, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .about-me h2 {
+            color: var(--primary);
+            font-size: 2rem;
+            margin-bottom: 20px;
+            text-align: center;
+            text-shadow: 0 0 10px rgba(79, 195, 247, 0.5);
+        }
+        
+        .about-me-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+        
+        .about-me-text {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .about-me-text p {
+            line-height: 1.7;
+            margin-bottom: 15px;
+        }
+        
+        .about-me-details {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .detail-item {
+            margin-bottom: 20px;
+        }
+        
+        .detail-title {
+            color: var(--primary);
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .detail-title i {
+            margin-right: 10px;
+        }
+        
+        .detail-content {
+            padding-left: 25px;
+        }
+        
+        /* Skills Chips */
+        .skills-chips {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 25px 0;
+        }
+        
+        .chip {
+            background: rgba(79, 195, 247, 0.2);
+            border: 1px solid var(--primary);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+        
+        .chip:hover {
+            background: rgba(79, 195, 247, 0.4);
+            transform: translateY(-2px);
+        }
+        
+        /* ===== Projects Section ===== */
+        .projects-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 20px;
+            position: relative;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 50px;
+            background: linear-gradient(to right, var(--primary), #ffffff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 15px rgba(79, 195, 247, 0.5);
+        }
+        
+        .engine-badge {
+            display: inline-block;
+            background: rgba(79, 195, 247, 0.2);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            border: 1px solid var(--primary);
+        }
+        
+        /* Project Grid */
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+        
+        .project-card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid rgba(79, 195, 247, 0.3);
+            transition: all 0.3s;
+            backdrop-filter: blur(5px);
+            cursor: pointer;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(79, 195, 247, 0.3);
+            border-color: var(--primary);
+        }
+        
+        .project-media {
+            position: relative;
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .project-media img, 
+        .project-media video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .project-card:hover .project-media img, 
+        .project-card:hover .project-media video {
+            transform: scale(1.05);
+        }
+        
+        .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            background: rgba(79, 195, 247, 0.7);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+        }
+        
+        .project-media:hover .play-button {
+            opacity: 1;
+        }
+        
+        .project-info {
+            padding: 20px;
+        }
+        
+        .project-title {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+        
+        .project-roles {
+            display: flex;
+            gap: 8px;
+            margin: 10px 0;
+            flex-wrap: wrap;
+        }
+        
+        .role {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+        }
+        
+        .project-description {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #cccccc;
+            margin-bottom: 15px;
+        }
+        
+        .tech-highlights {
+            margin: 15px 0 0 0;
+            padding-left: 20px;
+            font-size: 0.9rem;
+        }
+        
+        .tech-highlights li {
+            margin-bottom: 8px;
+            color: #cccccc;
+            position: relative;
+        }
+        
+        .tech-highlights li::before {
+            content: '▹';
+            position: absolute;
+            left: -15px;
+            color: var(--primary);
+        }
+        
+        /* ===== Modals ===== */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 1000;
+            overflow-y: auto;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        
+        .modal-content {
+            max-width: 900px;
+            margin: 50px auto;
+            background: var(--bg);
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid var(--primary);
+            box-shadow: 0 0 30px rgba(79, 195, 247, 0.3);
+            animation: modalFadeIn 0.3s;
+        }
+        
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .modal-header {
+            padding: 20px;
+            background: rgba(79, 195, 247, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(79, 195, 247, 0.3);
+        }
+        
+        .modal-title {
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin: 0;
+        }
+        
+        .close-modal {
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: #ffffff;
+            transition: transform 0.2s;
+        }
+        
+        .close-modal:hover {
+            transform: rotate(90deg);
+            color: var(--primary);
+        }
+        
+        .modal-body {
+            padding: 20px;
+        }
+        
+        .modal-media {
+            width: 100%;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .modal-media iframe {
+            width: 100%;
+            height: 500px;
+            border: none;
+        }
+        
+        .modal-description {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+        
+        .modal-features {
+            margin-top: 20px;
+        }
+        
+        .modal-features li {
+            margin-bottom: 10px;
+            list-style-type: none;
+            position: relative;
+            padding-left: 25px;
+        }
+        
+        .modal-features li:before {
+            content: '▹';
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+        }
+        
+        .feature-title {
+            color: var(--primary);
+            font-weight: bold;
+        }
+        
+        .modal-dev-notes {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .modal-dev-notes h3 {
+            margin-top: 0;
+            color: var(--primary);
+        }
+        
+        .modal-dev-notes ul {
+            padding-left: 20px;
+        }
+        
+        .modal-dev-notes li {
+            margin-bottom: 8px;
+        }
+        
+        .screenshots-container {
+            position: relative;
+            margin-top: 30px;
+        }
+        
+        .screenshots-grid {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            gap: 15px;
+            padding-bottom: 20px;
+            scrollbar-width: none; /* Firefox */
+        }
+        
+        .screenshots-grid::-webkit-scrollbar {
+            display: none; /* Chrome/Safari */
+        }
+        
+        .screenshot-slide {
+            scroll-snap-align: start;
+            min-width: 100%;
+            position: relative;
+        }
+        
+        .screenshots-grid img {
+            width: 100%;
+            border-radius: 5px;
+            border: 1px solid rgba(79, 195, 247, 0.3);
+            transition: transform 0.3s;
+        }
+        
+        .screenshots-grid img:hover {
+            transform: scale(1.02);
+            border-color: var(--primary);
+        }
+        
+        .screenshot-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 40px;
+            background: rgba(79, 195, 247, 0.5);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            transition: all 0.3s;
+        }
+        
+        .screenshot-nav:hover {
+            background: rgba(79, 195, 247, 0.8);
+        }
+        
+        .screenshot-prev {
+            left: 10px;
+        }
+        
+        .screenshot-next {
+            right: 10px;
+        }
+        
+        /* Map Navigation */
+        .map-nav {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .map-button {
+            background: rgba(79, 195, 247, 0.2);
+            border: 1px solid var(--primary);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .map-button:hover {
+            background: rgba(79, 195, 247, 0.4);
+        }
+        
+        .map-button.active {
+            background: rgba(79, 195, 247, 0.6);
+            box-shadow: 0 0 10px rgba(79, 195, 247, 0.5);
+        }
+        
+        /* Score Counter Styles */
+        .score-counter {
+            background: rgba(79, 195, 247, 0.2);
+            padding: 10px 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+            text-align: center;
+            border: 1px solid var(--primary);
+            animation: pulse 2s infinite;
+        }
+        
+        .score-number {
+            font-size: 1.5rem;
+            color: var(--primary);
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        
+        @keyframes coinBounce {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(10deg); }
+        }
+        
+        .coin-icon {
+            display: inline-block;
+            margin: 0 5px;
+            animation: coinBounce 1s infinite;
+        }
+        
+        /* ===== Stars Background ===== */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+        
+        /* ===== Scroll Down Arrow ===== */
+        .scroll-down {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--primary);
+            font-size: 2rem;
+            animation: bounce 2s infinite;
+            cursor: pointer;
+            z-index: 1;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0) translateX(-50%); }
+            40% { transform: translateY(-20px) translateX(-50%); }
+            60% { transform: translateY(-10px) translateX(-50%); }
+        }
+        
+        /* ===== Contact Ribbon ===== */
+        .contact-ribbon {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(10, 10, 26, 0.8);
+            backdrop-filter: blur(5px);
+            border-top: 1px solid rgba(79, 195, 247, 0.3);
+            padding: 15px 0;
+            z-index: 5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .contact-ribbon p {
+            margin: 0;
+            font-size: 1.1rem;
+        }
+        
+        .contact-button {
+            background: rgba(79, 195, 247, 0.2);
+            color: white;
+            border: 1px solid var(--primary);
+            padding: 8px 20px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+        
+        .contact-button:hover {
+            background: rgba(79, 195, 247, 0.4);
+            transform: translateY(-2px);
+        }
+        
+        /* ===== Responsive Adjustments ===== */
+        @media (max-width: 768px) {
+            .lv-logo-container {
+                top: 15px;
+                left: 15px;
+            }
+            
+            .lv-logo {
+                width: 50px;
+                height: 50px;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .profile-badge {
+                width: 100px;
+                height: 100px;
+            }
+            
+            .about-me-content {
+                flex-direction: column;
+            }
+            
+            .project-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .modal-content {
+                margin: 0;
+            }
+            
+            .modal-media iframe {
+                height: 250px;
+            }
+            
+            .screenshots-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (hover: none) {
+            .play-button {
+                opacity: 1 !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Stars Background -->
+    <div class="stars"></div>
+    
+    <div class="main-container">
+        <!-- Header Section -->
+        <section class="header-content">
+            <!-- LV Logo -->
+            <div class="lv-logo-container">
+                <div class="lv-logo">
+                    <div class="logo-ship">
+                        <div class="logo-base">LV</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Profile and Header Text -->
+            <div class="header-text">
+                <div class="profile-container">
+                    <div class="profile-badge">
+                        <div class="hologram-effect"></div>
+                        <img src="https://i.postimg.cc/k4yLr7Tc/LIBIN-VINU.jpg" alt="Libin Vinu" class="profile-img" loading="lazy">
+                    </div>
+                </div>
+                
+                <h1>Hello I'm <span class="highlight">Libin Vinu</span></h1>
+                <div class="subtitle">Unity Game Developer | C# Programmer |3D Modeling </div>
+                
+                <div class="bio">
+                    I'm a passionate<span class="highlight">Unity Game Developer skilled in C# and game mechanics</span> and <span class="highlight">optimized systems</span> in Unity. 
+                    Dedicated to creating immersive experiences.
+                </div>
+                
+                <div class="skills-chips">
+                    <span class="chip">Unity</span>
+                    <span class="chip">C#</span>
+                    <span class="chip">Game Physics</span>
+                    <span class="chip">AI Programming</span>
+                    <span class="chip">3D Modeling</span>
+                    <span class="chip">UI/UX Designer</span>
+                </div>
+            </div>
+            
+            <div class="scroll-down" onclick="document.querySelector('.projects-container').scrollIntoView({ behavior: 'smooth' })">↓</div>
+        </section>
+        
+        <!-- Projects Section -->
+        <section class="projects-container">
+            <h1 class="section-title">My Projects</h1>
+            
+            <h2 style="text-align: center; margin-bottom: 30px; color: var(--primary);">Built with Unity</h2>
+            
+            <div class="project-grid">
+                <!-- Project 1 - Endless Runner -->
+                <div class="project-card" onclick="openModal('runner')">
+                    <div class="project-media">
+                        <img src="https://i.postimg.cc/zBYrQSRm/hq720.jpg" alt="Endless Runner Game" loading="lazy">
+                        <div class="play-button">▶</div>
+                    </div>
+                    <div class="project-info">
+                        <span class="engine-badge">Unity</span>
+                        <div class="project-roles">
+                            <span class="role">Gameplay Programmer</span>
+                            <span class="role">Physics Designer</span>
+                            <span class="role">UI Systems</span>
+                        </div>
+                        <h3 class="project-title">Infinite Runner</h3>
+                        <p class="project-description">
+                            Fast-paced endless runner with responsive controls and dynamic obstacles. 
+                            Features smooth character movement and addictive gameplay mechanics.
+                        </p>
+                        <ul class="tech-highlights">
+                            <li>Procedural level generation</li>
+                            <li>Character controller physics</li>
+                            <li>Score multiplier system</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Project 2 - Zombie Game -->
+                <div class="project-card" onclick="openModal('zombie')">
+                    <div class="project-media">
+                        <img src="https://i.postimg.cc/0ysGKsd9/images.png" alt="Zombie Shooter Game" loading="lazy" style="object-position: top;">
+                        <div class="play-button">▶</div>
+                    </div>
+                    <div class="project-info">
+                        <span class="engine-badge">Unity</span>
+                        <div class="project-roles">
+                            <span class="role">Gameplay Programmer</span>
+                            <span class="role">AI Engineer</span>
+                        </div>
+                        <h3 class="project-title">Zombie Apocalypse</h3>
+                        <p class="project-description">
+                            First-person shooter with advanced zombie AI behaviors. 
+                            Features weapon systems, health management, and wave-based combat.
+                        </p>
+                        <ul class="tech-highlights">
+                            <li>Finite State Machine AI</li>
+                            <li>Raycast shooting system</li>
+                            <li>Object pooling optimization</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- About Me Section - Moved after Projects -->
+        <section class="about-me" id="about">
+            <h2>little about me</h2>
+            <div class="about-me-content">
+                <div class="about-me-text">
+                    <p>I am a dedicated and motivated Unity Developer with a strong background in game development. My objective is to leverage my technical expertise, creativity, and problem-solving skills to contribute to innovative projects within a dynamic team environment.</p>
+                    <p>I earned a Bachelor of Arts (BA) in Multimedia from Calicut University (2021-2024). My passion lies in creating immersive, interactive, and engaging gaming experiences through advanced game mechanics and visual storytelling.</p>
+                    <p>I am particularly focused on game physics, animation, level design, debugging, and performance optimization to create the best possible player experiences.</p>
+                </div>
+                <div class="about-me-details">
+                    <div class="detail-item">
+                        <div class="detail-title">
+                            <i>🎓</i> Education
+                        </div>
+                        <div class="detail-content">
+                            Bachelor of Arts (BA) in Multimedia from Calicut University (2021-2024)
+                        </div>
+                    </div>
+                    
+                    <div class="detail-item">
+                        <div class="detail-title">
+                            <i>🔥</i> Passion
+                        </div>
+                        <div class="detail-content">
+                            Creating immersive, interactive, and engaging gaming experiences through advanced game mechanics and visual storytelling
+                        </div>
+                    </div>
+                    
+                    <div class="detail-item">
+                        <div class="detail-title">
+                            <i>🎯</i> Focus Areas
+                        </div>
+                        <div class="detail-content">
+                            Game physics, animation, UI/UX design, debugging, and performance optimization
+                        </div>
+                    </div>
+                    
+                    <div class="detail-item">
+                        <div class="detail-title">
+                            <i>🛠️</i> Technical Skills
+                        </div>
+                        <div class="detail-content">
+                            Unity, C#, Blender, Photoshop, Git, Shader Graph, UI Toolkit
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    <!-- Contact Ribbon -->
+    <div class="contact-ribbon">
+        <p>libinvattakkunnel2255@gmail.com→</p>
+        <a href="mailto:libinvattakkunnel2255@gmail.com" class="contact-button">Contact Me</a>
+    </div>
+    
+    <!-- Modals -->
+    <!-- Endless Runner Modal -->
+    <div id="runner-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Infinite Runner</h2>
+                <span class="close-modal" onclick="closeModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="modal-media">
+                    <iframe src="https://www.youtube.com/embed/XBr46VT6b8o?autoplay=1&mute=1" 
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                    </iframe>
+                </div>
+                
+                <div class="modal-description">
+                    <h3 style="color: var(--primary);">Project Overview</h3>
+                    <p>An addictive endless runner with automatic forward movement, responsive jump mechanics, and procedurally generated obstacles. Built to showcase clean gameplay programming and smooth character controls.</p>
+                    
+                    <h3 style="color: var(--primary);">Key Features</h3>
+                    <ul class="modal-features">
+                        <li><span class="feature-title">Character Movement:</span> Smooth acceleration with responsive jump mechanics (including coyote time and jump buffering)</li>
+                        <li><span class="feature-title">Obstacle Generation:</span> Infinite procedural level generation with difficulty progression</li>
+                        <li><span class="feature-title">Score System:</span> Coin collection with combo multipliers and visual feedback</li>
+                        <li><span class="feature-title">Visual Effects:</span> Particle systems for coin collection, screen shake on collisions</li>
+                    </ul>
+                    
+                    <div class="modal-dev-notes">
+                        <h3 style="color: var(--primary);">Development Notes</h3>
+                        <ul>
+                            <li>Implemented object pooling for obstacles and coins to optimize performance</li>
+                            <li>Created a dynamic difficulty system that increases speed and obstacle density over time</li>
+                            <li>Solved ground detection issues with a custom raycast-based solution</li>
+                            <li>Developed a smooth camera follow system using Cinemachine with collision avoidance</li>
+                            <li>Added magnet power-up that attracts nearby coins using physics overlap spheres</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="screenshots-container">
+                    <button class="screenshot-nav screenshot-prev" onclick="scrollScreenshots('runner', -1)">❮</button>
+                    <button class="screenshot-nav screenshot-next" onclick="scrollScreenshots('runner', 1)">❯</button>
+                    <div class="screenshots-grid" id="runner-screenshots">
+                        <div class="screenshot-slide">
+                            <img src="https://i.postimg.cc/9FnVHq4f/Screenshot-2025-07-24-214616.png" alt="Runner Gameplay 1">
+                        </div>
+                        <div class="screenshot-slide">
+                            <img src="https://i.postimg.cc/JzMFgrxh/Screenshot-2025-07-24-214647.png" alt="Runner Gameplay 2">
+                        </div>
+                        <div class="screenshot-slide">
+                            <img src="https://i.postimg.cc/dVVBrLnG/Screenshot-2025-07-24-214716.png" alt="Runner Gameplay 3">
+                        </div>
+                        <div class="screenshot-slide">
+                            <img src="https://i.postimg.cc/j2vfS4pm/Screenshot-2025-07-24-214739.png" alt="Runner Gameplay 4">
+                        </div>
+                        <div class="screenshot-slide">
+                            <img src="https://i.postimg.cc/gJHXgK2j/Screenshot-2025-07-24-214924.png" alt="Runner Gameplay 5">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Zombie Modal -->
+    <div id="zombie-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Zombie Apocalypse</h2>
+                <span class="close-modal" onclick="closeModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="modal-media">
+                    <iframe src="https://www.youtube.com/embed/jzy4Jf9E9V8" 
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                    </iframe>
+                </div>
+                
+                <div class="modal-description">
+                    <h3 style="color: var(--primary);">Project Overview</h3>
+                    <p>First-person shooter with advanced zombie AI behaviors and weapon systems. Designed to create intense combat scenariosm                     with increasing difficulty. Features multiple enemy types, health management, and wave-based progression.</p>
+                    
+                    <h3 style="color: var(--primary);">Key Features</h3>
+                    <ul class="modal-features">
+                        <li><span class="feature-title">AI System:</span> Finite State Machine controlling idle, chase, attack, and death states</li>
+                        <li><span class="feature-title">Weapon Mechanics:</span> Raycast-based shooting with recoil, reloading, and ammo management</li>
+                        <li><span class="feature-title">Wave System:</span> Progressive difficulty with increasing enemy counts and types</li>
+                        <li><span class="feature-title">Health System:</span> Player health with visual feedback and zombie attack damage</li>
+                        <li><span class="feature-title">Navmesh Navigation:</span> Efficient pathfinding for zombie movement</li>
+                    </ul>
+                    
+                    <div class="modal-dev-notes">
+                        <h3 style="color: var(--primary);">Development Notes</h3>
+                        <ul>
+                            <li>Implemented object pooling for zombie instantiation to optimize performance</li>
+                            <li>Created a custom animation controller for zombie behaviors</li>
+                            <li>Developed a dynamic spawn system that adjusts based on player position</li>
+                            <li>Added headshot detection with bonus damage</li>
+                            <li>Implemented screen effects for player damage feedback</li>
+                            <li>Optimized AI logic to maintain performance with many active enemies</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="screenshots-container">
+                    <button class="screenshot-nav screenshot-prev" onclick="scrollScreenshots('zombie', -1)">❮</button>
+                    <button class="screenshot-nav screenshot-next" onclick="scrollScreenshots('zombie', 1)">❯</button>
+                    <div class="screenshots-grid" id="zombie-screenshots">
+                        <div class="screenshot-slide">
+                            <img src="https://i.postimg.cc/0ysGKsd9/images.png" alt="Zombie Gameplay 1">
+                        </div>
+                        <div class="screenshot-slide">
+                            <img src="https://i.postimg.cc/3JQYd3YH/Screenshot-2025-07-24-215130.png" alt="Zombie Gameplay 2">
+                        </div>
+                        <div class="screenshot-slide">
+                            <img src="https://i.postimg.cc/8zR0JX8B/Screenshot-2025-07-24-215200.png" alt="Zombie Gameplay 3">
+                        </div>
+                        <div class="screenshot-slide">
+                            <img src="https://i.postimg.cc/3JQYd3YH/Screenshot-2025-07-24-215130.png" alt="Zombie Gameplay 4">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Modal Functions
+        function openModal(project) {
+            document.getElementById(project + '-modal').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeModal() {
+            const modals = document.querySelectorAll('.modal');
+            modals.forEach(modal => {
+                modal.style.display = 'none';
+            });
+            document.body.style.overflow = 'auto';
+            
+            // Pause all videos when closing modal
+            const videos = document.querySelectorAll('iframe');
+            videos.forEach(video => {
+                const src = video.src;
+                video.src = src; // This effectively stops the video
+            });
+        }
+        
+        // Close modal when clicking outside content
+        window.onclick = function(event) {
+            const modals = document.querySelectorAll('.modal');
+            modals.forEach(modal => {
+                if (event.target == modal) {
+                    modal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }
+            });
+        }
+        
+        // Screenshot Navigation
+        function scrollScreenshots(project, direction) {
+            const container = document.getElementById(project + '-screenshots');
+            const scrollAmount = container.clientWidth * direction;
+            container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+        }
+        
+        // Create stars background
+        function createStars() {
+            const stars = document.querySelector('.stars');
+            const count = 200;
+            
+            for (let i = 0; i < count; i++) {
+                const star = document.createElement('div');
+                star.style.position = 'absolute';
+                star.style.width = `${Math.random() * 3}px`;
+                star.style.height = star.style.width;
+                star.style.backgroundColor = 'white';
+                star.style.borderRadius = '50%';
+                star.style.top = `${Math.random() * 100}%`;
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.opacity = Math.random();
+                star.style.animation = `twinkle ${Math.random() * 5 + 5}s infinite alternate`;
+                
+                // Add animation keyframes dynamically
+                const style = document.createElement('style');
+                style.innerHTML = `
+                    @keyframes twinkle {
+                        0% { opacity: ${Math.random()}; }
+                        100% { opacity: ${Math.random()}; }
+                    }
+                `;
+                document.head.appendChild(style);
+                
+                stars.appendChild(star);
+            }
+        }
+        
+        // Initialize on load
+        window.onload = function() {
+            createStars();
+        };
+    </script>
+</body>
+</html>
